@@ -50,15 +50,15 @@
 				border-radius: 0.5rem
 				padding: 0.25rem
 				margin: 0.5rem
-				background-color: #dfdfdf
 				text-align: center
+				background-color: #e6e6e6
+				box-shadow: 0 0 0.5rem 0.125rem rgba(0, 0, 0, 0.05), 0 0 0.5rem 0.25rem rgba(255, 255, 255, 0.1) inset
 				transition: all 0.2s ease-in-out
 				@media (max-width: 40em)
 					flex: 1
 					width: 100%
 				&:hover
-					background-color: #e6e6e6
-					box-shadow: 0 0 0.5rem 0.125rem rgba(0, 0, 0, 0.05), 0 0 0.5rem 0.25rem rgba(255, 255, 255, 0.1) inset
+					box-shadow: 0 0 0.5rem 0.125rem rgba(0, 0, 0, 0.15), 0 0 0.5rem 0.25rem rgba(255, 255, 255, 0.25) inset
 		.field
 			width: auto
 			flex-grow: 1

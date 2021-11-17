@@ -114,7 +114,6 @@
 	flex-wrap: wrap
 	align-items: center
 	justify-content: center
-	cursor: pointer
 	background: #e6e6e6
 	border: 0.1rem solid rgba(white, 0.25)
 	border-radius: 0.5rem
@@ -126,18 +125,20 @@
 	box-shadow: 0 0 0.5rem 0.125rem rgba(0, 0, 0, 0.05), 0 0 0.5rem 0.25rem rgba(255, 255, 255, 0.1) inset
 	&:hover
 		box-shadow: 0 0 0.5rem 0.125rem rgba(0, 0, 0, 0.15), 0 0 0.5rem 0.25rem rgba(255, 255, 255, 0.25) inset
-	@media (min-width: 66em)
+	@media (min-width: 66rem)
 		min-width: 40%
 	.animal-image-wrapper
 		display: flex
 		flex-wrap: wrap
 		align-items: center
 		justify-content: center
+		order: -1
 		min-width: 100%
 		max-width: 25%
 		margin: 0 0 1rem 0
 		border-radius: 0.25rem
-		@media (min-width: 35em)
+		@media (min-width: 35rem)
+			order: 1
 			min-width: auto
 			width: auto
 			margin: 0.5rem 1rem
@@ -164,7 +165,7 @@
 		align-items: center
 		justify-content: center
 		flex: 1
-		@media (min-width: 66em)
+		@media (min-width: 66rem)
 			height: 100%
 		.animal-name
 			display: flex
@@ -232,6 +233,7 @@
 					justify-content: center
 					padding: 1rem
 					min-width: 100%
+					line-height: 1.25rem
 					text-indent: 0.25rem
 		.breeds-colors-wrapper
 			display: flex
@@ -269,7 +271,7 @@
 				justify-content: center
 				flex: 1
 				min-width: 100%
-				@media (min-width: 28em)
+				@media (min-width: 28rem)
 					min-width: 40%
 				.animal-color
 					display: flex
@@ -289,15 +291,25 @@
 			flex-wrap: wrap
 			align-items: center
 			justify-content: center
+			width: 100%
 			padding: 0.25rem
+			justify-content: flex-start
 			.animal-options-title
-				width: auto
-				margin-right: 0.2rem
+				display: flex
+				flex-wrap: wrap
+				align-items: center
+				justify-content: center
+				.animal-options-title-icon
+					margin-right: 0.5rem
+					height: 1.5rem
+					width: 1.5rem
+				.animal-options-title-text
 			.animal-options-list
 				display: flex
 				flex-wrap: wrap
 				align-items: center
 				justify-content: center
+				margin-left: 0.25rem
 				.animal-option
 					display: flex
 					flex-wrap: wrap
@@ -311,27 +323,62 @@
 							content: ''
 							margin-right: 0
 		.animal-contact
+			width: 100%
+			padding: 0.25rem
+			.animal-contact-method
+				display: flex
+				flex-wrap: wrap
+				align-items: center
+				justify-content: center
+				justify-content: flex-start
+				margin: 0.75rem auto
+				.animal-contact-method-icon
+					margin-right: 0.5rem
+					height: 1.5rem
+					width: 1.5rem
+				.animal-contact-method-text
+		.animal-updated
 			display: flex
 			flex-wrap: wrap
 			align-items: center
 			justify-content: center
-			min-width: 100%
 			padding: 0.25rem
-			.animal-contact-method
-				margin: 0.25rem
-		.animal-link
+			width: 100%
+			justify-content: flex-start
+			.animal-updated-icon
+				margin-right: 0.5rem
+				height: 1.5rem
+				width: 1.5rem
+			.animal-updated-text
+		.animal-link-wrapper
+			width: 100%
 			padding: 0.25rem
+			display: flex
+			flex-wrap: wrap
+			align-items: center
+			justify-content: center
+			justify-content: flex-start
+			.animal-link
+				display: flex
+				flex-wrap: wrap
+				align-items: center
+				justify-content: center
+				margin-top: 0.5rem
+				padding: 0.5rem
+				text-decoration: none
+				border-radius: 0.25rem
+				transition: all 0.2s ease-in-out
+				box-shadow: 0 0 0.5rem 0.125rem rgba(0, 0, 0, 0.05), 0 0 0.5rem 0.25rem rgba(255, 255, 255, 0.1) inset
+				&:hover
+					box-shadow: 0 0 0.5rem 0.125rem rgba(0, 0, 0, 0.15), 0 0 0.5rem 0.25rem rgba(255, 255, 255, 0.25) inset
+				.animal-link-icon
+					margin-right: 0.5rem
+					height: 1.5rem
+					width: 1.5rem
+				.animal-link-text
 </style>
 
 <div class="animal" animal_id={id} age={age} gender={gender} size={size} name={name()} org={organization_id} mixed={isMixedBreed} distance={distance} spayed_neutered={if_spayed_neutered} house_trained={if_house_trained} declawed={if_declawed} special_needs={if_special_needs} shots_current={if_shots_current}>
-	<div class="animal-image-wrapper">
-		{#if hasImage}
-			<img src={image} alt="" class="animal-image">
-		{/if}
-		{#if !hasImage}
-			<p class="animal-image-backup">No image found</p>
-		{/if}
-	</div>
 	<div class="animal-info-wrapper">
 		<div class="animal-name">
 			<p class="animal-name-text">{name()}</p>
@@ -375,12 +422,15 @@
 			{#if hasDescription}
 				<p class="animal-other-info-item description">{description()}</p>
 			{/if}
-			<p class="animal-other-info-item">{published_at()}</p>
+			<!-- <p class="animal-other-info-item">{published_at()}</p> -->
 			<p class="animal-other-info-item">{distance}</p>
 		</div>
 		{#if if_spayed_neutered || if_house_trained || if_declawed || if_special_needs || if_shots_current}
 			<div class="animal-options">
-				<p class="animal-options-title">Details: </p>
+				<div class="animal-options-title">
+					<img class="animal-options-title-icon" src="/icons/list.svg" alt="details">
+					<p class="animal-options-title-text">Details: </p>
+				</div>
 				<div class="animal-options-list">
 					{#if if_spayed_neutered}
 						<p class="animal-option">spayed / neutered</p>
@@ -403,16 +453,42 @@
 		{#if address() || phone() || email}
 			<div class="animal-contact">
 				{#if address}
-					<p class="animal-contact-method">{address()}</p>
+					<div class="animal-contact-method">
+						<img class="animal-contact-method-icon" src="/icons/map-pin.svg" alt="location">
+						<p class="animal-contact-method-text">{address()}</p>
+					</div>
 				{/if}
-				{#if phone}
-					<p class="animal-contact-method">{phone()}</p>
+				{#if phone()}
+					<div class="animal-contact-method">
+						<img class="animal-contact-method-icon" src="/icons/phone-call.svg" alt="phone number">
+						<p class="animal-contact-method-text">{phone()}</p>
+					</div>
 				{/if}
 				{#if email}
-					<p class="animal-contact-method">{email}</p>
+					<div class="animal-contact-method">
+						<img class="animal-contact-method-icon" src="/icons/mail.svg" alt="e-mail address">
+						<p class="animal-contact-method-text">{email}</p>
+					</div>
 				{/if}
 			</div>
 		{/if}
-		<a class="animal-link" href="{url}" target="_blank">More Info</a>
+		<div class="animal-updated">
+			<img class="animal-updated-icon" src="/icons/clock.svg" alt="last update">
+			<p class="animal-updated-text">{published_at()}</p>
+		</div>
+		<div class="animal-link-wrapper">
+			<a class="animal-link" href="{url}" target="_blank">
+				<img class="animal-link-icon" src="/icons/more.svg" alt="more information">
+				<p class="animal-link-text">More Information</p>
+			</a>
+		</div>
+	</div>
+	<div class="animal-image-wrapper">
+		{#if hasImage}
+			<img src={image} alt="" class="animal-image">
+		{/if}
+		{#if !hasImage}
+			<p class="animal-image-backup">No image found</p>
+		{/if}
 	</div>
 </div>
